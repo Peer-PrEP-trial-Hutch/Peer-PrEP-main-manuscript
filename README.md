@@ -1,4 +1,4 @@
-# Peer PrEP clustered randomized controlled trial(cRCT) - main findings
+# Peer PrEP clustered randomized controlled trial (cRCT) - main findings
 
 ## Overview
 
