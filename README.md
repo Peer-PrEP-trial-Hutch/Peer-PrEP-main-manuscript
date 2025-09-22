@@ -5,7 +5,10 @@
 
 ## Overview
 
-This repository stores the core analytical information of the manuscript entitled "The Effect of Formalized Peer PrEP Referral with HIV Self-Test Delivery on PrEP Initiation Among Young Kenyan Women: A Cluster-Randomized Controlled Trial" derived from the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov/study/NCT04982250?cond=HIV&titles=Peer%20PrEP&rank=1)).
+This repository stores the core analytical information of the manuscript entitled 
+"The effect of enhanced peer PrEP referral with HIV self-testing delivery among 
+young Kenyan women: A randomized controlled trial of peer networks" derived from 
+the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov/study/NCT04982250?cond=HIV&titles=Peer%20PrEP&rank=1)).
 
 
 ## Datasets
