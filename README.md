@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/170770869.svg)](https://doi.org/10.5281/zenodo.17173243)
+
+
 # Peer PrEP clustered randomized controlled trial (cRCT) - main findings
 
 ## Overview
