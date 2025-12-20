@@ -38,4 +38,4 @@ the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov
 ## Reference
 *Ortblad K, Wairimu N, Culquichicón C, Njeru I, Malen R, Adriana R, et al. 
 The effect of enhanced peer PrEP referral with HIV self-testing delivery among 
-young Kenyan women: A randomized controlled trial of peer networks. PLoS Medicine [Under review]; 2025.*
+young Kenyan women: A randomized controlled trial of peer networks. PLoS Medicine; 2025. [Under review]*
