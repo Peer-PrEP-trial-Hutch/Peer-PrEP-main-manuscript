@@ -15,13 +15,14 @@ the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov
 
 - *datasets/df_pbl_main.xlsx*: Index peer's baseline information (Month 0).
 - *datasets/ds_pfu_main.xlsx*: Index peer's follow-up information (Month 3) [wide format].
-- *datasets/ds_pfu_lcomp_main.xlsx*: Index peer's follow-up information (Month 3) (long format)
+- *datasets/ds_pfu_lcomp_main.xlsx*: Index peer's follow-up information (Month 3) [long format]
 - *datasets/ds_cfu_main.xlsx*: Referred peer's baseline and follow-up information collected at month 3.
 
 
 ## Codebook
 
 - *datasets/data dictionary.xlsx*
+ -- Sheet '1. ds_pbl': Index peer's baseline information.
 
 
 ## Analyses scripts
