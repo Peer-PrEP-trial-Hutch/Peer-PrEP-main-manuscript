@@ -24,7 +24,12 @@ the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov
 - *datasets/data dictionary.xlsx*
 
 
-    - Sheet '1. ds_pbl': Index peer's baseline information.
+    - Sheet '1. ds_pbl': Index peer's baseline.
+    - Sheet '2. ds_pfu': Index peer's follow-up.
+    - Sheet '3. ds_pfu_lcomp': Referred peer's outcomes by Index peer follow-up.
+    - Sheet '4. ds_cfu': Referred peer's baseline covariates and outcomes.
+
+
 
 
 ## Analyses scripts
