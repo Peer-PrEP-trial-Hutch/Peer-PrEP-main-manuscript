@@ -13,14 +13,18 @@ the Peer PrEP cRCT ([ClinicalTrials.gov: NCT04982250](https://clinicaltrials.gov
 
 ## Datasets
 
-- */datasets/df_pbl_main.xlsx*:
-- */datasets/ds_pfu_main.xlsx*:
-- */datasets/ds_pfu_lcomp_main.xlsx*:
-- */datasets/ds_cfu_main.xlsx*:
+- *datasets/df_pbl_main.xlsx*:
+- *datasets/ds_pfu_main.xlsx*:
+- *datasets/ds_pfu_lcomp_main.xlsx*:
+- *datasets/ds_cfu_main.xlsx*:
 
 
 ## Codebook
 
-- */datasets/data dictionary.xlsx*
+- *datasets/data dictionary.xlsx*
+
+
+## Analyses scripts
+- *scripts/da_peer_prep_mn.R*
 
 ## Reference
