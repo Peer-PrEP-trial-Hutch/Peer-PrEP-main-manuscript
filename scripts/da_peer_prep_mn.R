@@ -208,6 +208,152 @@ df_contracept_m2=df_contracept_m2[order(df_contracept_m2$N.x, decreasing = TRUE)
 
 ### Referred peers - reported by index peers ----
 
+labels_df_lcomp=c(
+  #p2_ptid="Participant's ID",
+  p2_s0_arm="Study arm", #Added,
+  p2_s6_q1_2 ="Peer's age*", #Added
+  p2_s6_q1_5 ="Relationship status", #Added
+  p2_s6_q1_12a ="Clients had previously used PrEP",
+  p2_s6_q1_6="Sex exchange (past 6 months)",
+  p2_s6_q1_1 ="Days: provider training to client referral*",
+  p2_s6_q1_13 ="Provider disclosed PrEP use to client",
+  p2_s6_q1_7 ="Materials clients received from providers",
+  # p2_s6_q1_12aa ="PrEP use at deliverying intervention",
+  
+  
+  p2_s6_q0 ="Number of clients referred*", #Added
+  p2_s6_q1_17 ="Visited clinic for HIV services", # Formerly PrEP referral
+  p2_s6_q1_14="Any HIV testing",
+  p2_s6_q1_14b ="HIV results",
+  p2_s6_q01a = "HIVST",
+  p2_s6_q1_17c ="Provider escorted client to HIV services",
+  p2_s6_q1_17d ="PrEP initiation",
+  p2_s6_q07 ="PrEP retention/continuation"
+  
+)
+
+
+
+vars_lcomp=names(labels_df_lcomp[1:7])
+vars_c_lcomp=paste(vars_lcomp,collapse = "+")
+vars_c_f_lcomp=as.formula(paste("~",vars_c_lcomp))
+vars_f_lcomp=as.formula(paste("p2_s0_arm~",vars_c_lcomp))
+
+
+df_table_total_in_fu_lcomp=df_lcomp %>% dplyr::select(all_of(vars_lcomp))
+df_table_total_in_fu_lcomp=set_variable_labels(df_table_total_in_fu_lcomp,
+                                               .labels = labels_df_lcomp[1:7])
+
+
+df_table_total_pfu_out_lcomp=compareGroups(vars_f_lcomp, data = df_table_total_in_fu_lcomp,
+                                           method=c(p2_s6_q1_2=2,p2_s6_q1_1 =2), simplify=TRUE) %>% createTable(#show.all = T,
+                                             show.n=T)
+
+
 
 
 ### Referred peers - self-reported ----
+
+
+labels_df_total_cfu=c(
+  c2_s0_arm= "Study arm",
+  # c2_ptid="Client's ID",
+  # c2_pp_ptid="Peer Provider PTID",
+  c2_s1_q1 = "Age*",
+  c2_s1_q5 = "Relationship status",
+  c2_s2_q2 = "Knowledge of own HIV status",
+  c2_s2_q6 = "No. of sexual partners*",
+  c2_s6_q1_1 = "Prior PrEP use",
+  c2_s6_q1_1_rec = "Prior PrEP use",
+  
+  c2_s1_q2 = "Years in school*",
+  c2_s1_q3 = "Currently in school",
+  c2_s1_q4 = "Marital status",
+  age_gap = "Age gap between client and last sexual partner*",
+  c2_s1_q7_1 = "Enrolled in another HIV study",
+  c2_s1_q7 = "Alcohol consumption",
+  
+  c2_s1_q6 = "Monthly income",
+  c2_s1_q8_dico = "Ilegal drug use",
+  c2_s2_q18 = "Ever being pregnant",
+  c2_s2_q18a = "No. of living children",
+  c2_s2_q17 = "Age of first sex*",
+  c2_s2_q8_1b = "Known partner living with HIV",
+  c2_s2_q6_1 = "Any condomless sex (past 6 months)",
+  c2_s2_q10 = "Unprotected sex with partner of unknown/positive HIV status (past 6 months)",
+  c2_s2_q11 = "STI (past 6 months)",
+  c2_s2_q12 = "Prior emergency contraception use (past 6 months)",
+  c2_s2_q13 = "Emergency contraception twice (past 6 months)",
+  c2_s2_q14 = "PEP use more than twice (past 6 months)",
+  c2_s2_q15 = "Sex under influence of drugs (past 6 months)",
+  c2_s2_q16 = "Sex exchange (past 6 months)",
+  c2_s6_q1_1_1 = "Currently using PrEP for HIV prevention",
+  c2_s6_q01e = "Has disclosed PrEP use to others",
+  prep_first = "Time since first PrEP use (months)*",
+  incons_condom = "Inconsisten condom use",
+  new_sexpart_dico = "New sexual partner (past 3 months)",
+  c2_s2_q7 = "No. of sexual partners with known HIV status*",
+  c2_s6_q01j = "Knowledge of own HIV status",
+  c2_s2_q8_1a_rec = "Any HIV testing with primary partner",
+  c2_s2_q1_rec = "Last HIV testing, past 3 months"
+  
+)
+
+
+vars=c("c2_s0_arm","c2_s1_q1","c2_s1_q5","c2_s2_q2","c2_s2_q6",
+       "c2_s6_q1_1","c2_s6_q1_1_rec",
+       
+       "c2_s1_q2", "c2_s1_q3","c2_s1_q4","age_gap","c2_s1_q7_1","c2_s1_q7",
+       
+       "c2_s1_q6", "c2_s1_q8_dico", "c2_s2_q18", "c2_s2_q18a","c2_s2_q17",
+       "c2_s2_q8_1b","c2_s2_q10","c2_s2_q6_1","c2_s2_q11","c2_s2_q12",
+       "c2_s2_q13","c2_s2_q14","c2_s2_q15","c2_s2_q16","c2_s6_q1_1_1",
+       "c2_s6_q01e","prep_first","incons_condom","new_sexpart_dico","c2_s2_q7","c2_s6_q01j",
+       
+       "c2_s2_q8_1a_rec","c2_s2_q1_rec"
+       
+       
+)
+
+vars_c=paste(vars,collapse = "+")
+vars_c_f=as.formula(paste("~",vars_c))
+vars_f=as.formula(paste("c2_s0_arm~",vars_c))
+
+
+df_table_total_in_cfu=ds_cfu %>% dplyr::select(all_of(vars))
+df_table_total_in_cfu=set_variable_labels(df_table_total_in_cfu, 
+                                          .labels = labels_df_total_cfu)
+
+#label(df_table_total_in)
+
+df_table_total_cfu_out=compareGroups(vars_f, data = df_table_total_in_cfu,
+                                     method = c(c2_s1_q1=2, c2_s2_q6=2, c2_s1_q2=2, age_gap=2,c2_s1_q6=2,
+                                                c2_s2_q18a=2,c2_s2_q17=2,prep_first=2,c2_s2_q7=2),simplify=T) %>% createTable(show.n = T)
+
+
+
+# Table 2 ----
+## Among referred peers, reported by index peers ----
+
+## Among referred peers, self-reported ----
+
+
+## Among index peers, self-reported ----
+
+
+
+
+# Table 3 ----
+## Process outcomes ----
+
+### Among referred peers, reported by index peers ----
+
+
+### Among referred peers, self-reported ----
+
+## Implementation outcomes ----
+
+
+### Among index peers, reported by index peers  ----
+
+### Among referred peers, self-reported ----
