@@ -354,6 +354,105 @@ colnames(df_client_rprovid_nclient)=c("Estimate","Lower bound","Upper bound","P-
 
 
 ## Among referred peers, self-reported ----
+addmargins(table(ds_cfu$c2_s6_q01f,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$c2_s6_q01f,ds_cfu$c2_s0_arm),margin=2)*100,0)
+
+addmargins(table(ds_cfu$c2_s6_q01i,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$c2_s6_q01i,ds_cfu$c2_s0_arm),margin=2)*100,0)
+
+ds_cfu$c2_s6_q01t=ifelse(ds_cfu$c2_s6_q01t=="Didn't seek HIV services","No",ds_cfu$c2_s6_q01t)
+addmargins(table(ds_cfu$c2_s6_q01t,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$c2_s6_q01t,ds_cfu$c2_s0_arm),margin=2)*100,0)
+
+ds_cfu$c2_s6_q01w=ifelse(ds_cfu$c2_s6_q01w=="Didn't seek HIV services","No",ds_cfu$c2_s6_q01w)
+addmargins(table(ds_cfu$c2_s6_q01w,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$c2_s6_q01w,ds_cfu$c2_s0_arm),margin=2)*100,0)
+
+summary(ds_cfu[ds_cfu$c2_s0_arm=="Intervention","prep_adh_score"])
+summary(ds_cfu[ds_cfu$c2_s0_arm=="Control","prep_adh_score"])
+
+
+
+ds_cfu$c2_s0_arm_num=as.numeric(as.factor(ds_cfu$c2_s0_arm))-1
+
+
+ds_cfu$c2_s6_q01f=relevel(as.factor(ds_cfu$c2_s6_q01f), ref='No')
+ds_cfu$c2_s6_q01f_num=as.numeric(ds_cfu$c2_s6_q01f)-1
+
+ds_cfu$c2_s6_q01i_num=as.numeric(ds_cfu$c2_s6_q01i)
+
+
+ds_cfu$c2_s6_q01t=relevel(as.factor(ds_cfu$c2_s6_q01t), ref="No")
+ds_cfu$c2_s6_q01t_num=as.numeric(ds_cfu$c2_s6_q01t)
+ds_cfu$c2_s6_q01t_num=ifelse(is.na(ds_cfu$c2_s6_q01t_num),1,
+                             ifelse(ds_cfu$c2_s6_q01t_num==4,1,ds_cfu$c2_s6_q01t_num))
+ds_cfu$c2_s6_q01t_num=ds_cfu$c2_s6_q01t_num-1
+
+ds_cfu$c2_s6_q01w_num=relevel(as.factor(ds_cfu$c2_s6_q01w), ref='No')
+ds_cfu$c2_s6_q01w_num=ifelse(ds_cfu$c2_s6_q01w_num == 2, 0, ds_cfu$c2_s6_q01w_num)-1
+
+
+
+
+glmm_anyhivt_pc_m=glmer(c2_s6_q01f_num ~ c2_s0_arm + (1|c2_pp_ptid), 
+                        family = gaussian(link="identity"), data=ds_cfu)
+df_pc_anyhivt=cbind(summary(glmm_anyhivt_pc_m)$coef[2,1],confint(glmm_anyhivt_pc_m)[4,1],confint(glmm_anyhivt_pc_m)[4,2])
+df_pc_anyhivt=as.data.frame(df_pc_anyhivt)
+rownames(df_pc_anyhivt)=c("Any recent HIV testing since referral")
+
+
+
+glmm_ptest_pc_m=glmer(c2_s6_q01i_num ~ c2_s0_arm + (1|c2_pp_ptid), 
+                      family = gaussian(link="identity"), data=ds_cfu)
+df_pc_ptest=cbind(summary(glmm_ptest_pc_m)$coef[2,1],confint(glmm_ptest_pc_m)[4,1],confint(glmm_ptest_pc_m)[4,2])
+df_pc_ptest=as.data.frame(df_pc_ptest)
+rownames(df_pc_ptest)=c("Partner HIV testing")
+
+
+
+glmm_pinit_pc_m=glmer(c2_s6_q01t_num ~ c2_s0_arm_num + (1|c2_pp_ptid), 
+                      family = gaussian(link="identity"), data=ds_cfu)
+df_pc_pinit=cbind(summary(glmm_pinit_pc_m)$coef[2,1],confint(glmm_pinit_pc_m)[4,1],confint(glmm_pinit_pc_m)[4,2])
+df_pc_pinit=as.data.frame(df_pc_pinit)
+rownames(df_pc_pinit)=c("PrEP initiation")
+
+
+
+glmm_pcont_pc_m=glmer(c2_s6_q01w_num ~ c2_s0_arm + (1|c2_pp_ptid), 
+                      family = gaussian(link="identity"), data=ds_cfu)
+df_pc_pcont=cbind(coef(glmm_padhsc_pc_m)[2],confint(glmm_pcont_pc_m)[4,1],confint(glmm_pcont_pc_m)[4,2])
+df_pc_pcont=as.data.frame(df_pc_pcont)
+rownames(df_pc_pcont)=c("PrEP continuation")
+
+
+
+
+glmm_padhsc_pc_m=lqmm(fixed = prep_adh_score ~ c2_s0_arm, random= ~1, group = c2_pp_ptid, data=ds_cfu, tau= 0.5, type = "robust", na.action="na.omit")
+qreg_padhsc=summary(glmm_padhsc_pc_m)$tTable
+df_pc_padhsc=cbind(cbind(qreg_padhsc[2,1],
+                         t(qreg_padhsc[2,3:4])))
+df_pc_padhsc=as.data.frame(df_pc_padhsc)
+rownames(df_pc_padhsc)=c("PrEp adherence score")
+colnames(df_pc_padhsc)=names(df_pc_pinit)
+
+
+
+df_pc=rbind(
+  
+  df_pc_anyhivt, df_pc_ptest, df_pc_pinit, df_pc_padhsc
+  
+)
+df_pc_out=data.frame(Var=rownames(df_pc),
+                     Estimate=round(df_pc[,1],2),
+                     ll=round(df_pc[,2],2),
+                     ul=round(df_pc[,3],2),
+                     # pval=round(df_pc[,4],3),
+                     CI=paste0("(",round(df_pc[,2],2),", ",round(df_pc[,3],2),")"))
+
+df_pc
+summary(glmm_pcont_pc_m)$coef
+confint(glmm_pcont_pc_m)
+
 
 
 ## Among index peers, self-reported ----
