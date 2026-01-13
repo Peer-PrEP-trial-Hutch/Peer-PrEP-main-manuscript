@@ -457,7 +457,27 @@ confint(glmm_pcont_pc_m)
 
 ## Among index peers, self-reported ----
 
+addmargins(table(ds_pfu$p2_s5_q1_1,ds_pfu$p2_s0_arm))
+round(prop.table(table(ds_pfu$p2_s5_q1_1,ds_pfu$p2_s0_arm),margin=2)*100,0)
 
+ds_pfu$p2_s0_arm_num=as.numeric(as.factor(ds_pfu$p2_s0_arm))-1
+ds_pfu$p2_s5_q1_1_num=as.numeric(as.factor(ds_pfu$p2_s5_q1_1))-1
+
+
+
+glmm_prepcurrent_glmm_m=glmer(p2_s5_q1_1_num ~ p2_s0_arm_num + (1|p2_ptid), 
+                              family = gaussian(link="identity"), data=ds_pfu,
+                              control=lmerControl(check.nobs.vs.nlev = "ignore",
+                                                  check.nobs.vs.rankZ = "ignore",
+                                                  check.nobs.vs.nRE="ignore"))
+glmm_prepcurrent_glmm=summary(glmm_prepcurrent_glmm_m)$coef
+df_client_rprovid_prepcurrent_glmm=cbind(cbind(glmm_prepcurrent_glmm[2,1],
+                                               t(confint(glmm_prepcurrent_glmm_m)[4,])),
+                                         Anova(glmm_prepcurrent_glmm_m)[3])
+df_client_rprovid_prepcurrent_glmm=as.data.frame(df_client_rprovid_prepcurrent_glmm)
+rownames(df_client_rprovid_prepcurrent_glmm)=c("Currently using PrEP for prevention")
+
+df_client_rprovid_prepcurrent_glmm
 
 
 # Table 3 ----
