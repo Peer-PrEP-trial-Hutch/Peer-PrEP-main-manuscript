@@ -335,6 +335,24 @@ df_table_total_cfu_out=compareGroups(vars_f, data = df_table_total_in_cfu,
 # Table 2 ----
 ## Among referred peers, reported by index peers ----
 
+
+summary(df_lcomp[df_lcomp$p2_s0_arm=="Intervention","p2_s6_q0"])
+summary(df_lcomp[df_lcomp$p2_s0_arm=="Control","p2_s6_q0"])
+
+
+qreg_nclient_m=lqmm(fixed = p2_s6_q0 ~ p2_s0_arm, random= ~1, group = p2_ptid, data=df_lcomp, tau= 0.5, 
+                    # nK=3, 
+                    type = "robust")
+qreg_nclient=summary(qreg_nclient_m)$tTable
+df_client_rprovid_nclient=cbind(cbind(qreg_nclient[2,1],
+                                      t(qreg_nclient[2,3:5])))
+df_client_rprovid_nclient=as.data.frame(df_client_rprovid_nclient)
+rownames(df_client_rprovid_nclient)=c("Number of clients referred*")
+colnames(df_client_rprovid_nclient)=colnames(df_client_rprovid_prepcont_glmm)
+
+
+
+
 ## Among referred peers, self-reported ----
 
 
