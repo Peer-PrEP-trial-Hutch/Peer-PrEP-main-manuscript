@@ -348,7 +348,7 @@ df_client_rprovid_nclient=cbind(cbind(qreg_nclient[2,1],
                                       t(qreg_nclient[2,3:5])))
 df_client_rprovid_nclient=as.data.frame(df_client_rprovid_nclient)
 rownames(df_client_rprovid_nclient)=c("Number of clients referred*")
-colnames(df_client_rprovid_nclient)=colnames(df_client_rprovid_prepcont_glmm)
+colnames(df_client_rprovid_nclient)=c("Estimate","Lower bound","Upper bound","P-value")
 
 
 
