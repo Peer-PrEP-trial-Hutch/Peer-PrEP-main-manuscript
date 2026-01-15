@@ -519,6 +519,17 @@ df_fullblfu[df_fullblfu$days_enroll_fu==1,]
 
 
 
+
+
+addmargins(table(df_lcomp$p2_s6_q1_13,df_lcomp$p2_s0_arm))
+round(prop.table(table(df_lcomp$p2_s6_q1_13,df_lcomp$p2_s0_arm),margin=2)*100,0)
+
+
+addmargins(table(df_lcomp$p2_s6_q1_17c,df_lcomp$p2_s0_arm))
+round(prop.table(table(df_lcomp$p2_s6_q1_17c,df_lcomp$p2_s0_arm),margin=2)*100,0)
+
+
+
 ### Among referred peers, self-reported ----
 
 ## Implementation outcomes ----
