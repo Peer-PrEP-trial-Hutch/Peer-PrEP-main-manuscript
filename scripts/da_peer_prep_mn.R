@@ -486,6 +486,39 @@ df_client_rprovid_prepcurrent_glmm
 ### Among referred peers, reported by index peers ----
 
 
+# timestamp enrollment to visit 
+
+ds_pbl[ds_pbl$p1_s5_q1=="01/01/2000",]=NA
+ds_pbl$p1_s5_q1=as.Date(ds_pbl$p1_s5_q1)
+ds_pbl$p1_s0_visit_date=as.Date(ds_pbl$p1_s0_visit_date)
+
+
+df_bline=ds_pbl[,c("p1_ptid","p1_s0_arm","p1_s0_visit_date")]
+df_bline$p1_s0_arm_num=as.numeric(as.factor(df_bline$p1_s0_arm))-1
+# df_bline$p1_s0_arm=ifelse(df_bline$p1_s0_arm==2,0,1)
+df_bline=df_bline[,c(1,4,3)]
+names(df_bline)=c("ptid","arm","date_enroll")
+
+df_fup=ds_pfu[,c("p2_ptid","p2_s0_arm","p2_s0_visit_date")]
+df_fup$p2_s0_arm_num=as.numeric(as.factor(df_fup$p2_s0_arm))-1
+df_fup$p2_s0_visit_date=as.Date(df_fup$p2_s0_visit_date)
+df_fup=df_fup[,c(1,4,3)]
+names(df_fup)=c("ptid","arm","date_fu")
+
+
+df_fullblfu=merge(df_bline,df_fup,by=c("ptid","arm"), all=T)
+
+
+df_fullblfu$days_enroll_fu=as.numeric(difftime(df_fullblfu$date_fu,df_fullblfu$date_enroll, units="days"))
+
+summary(df_fullblfu[df_fullblfu$arm==0 & df_fullblfu$days_enroll_fu>1,c("days_enroll_fu")])
+summary(df_fullblfu[df_fullblfu$arm==1 & df_fullblfu$days_enroll_fu>1,c("days_enroll_fu")])
+
+df_fullblfu[df_fullblfu$days_enroll_fu==1,]
+
+
+
+
 ### Among referred peers, self-reported ----
 
 ## Implementation outcomes ----
