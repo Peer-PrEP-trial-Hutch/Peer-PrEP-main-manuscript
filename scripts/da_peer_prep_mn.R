@@ -547,7 +547,76 @@ round(prop.table(table(ds_cfu$c2_s6_q01s,ds_cfu$c2_s0_arm),margin=2)*100,0)
 
 ## Implementation outcomes ----
 
-
 ### Among index peers, reported by index peers  ----
 
+
+labels_implem=c(
+  p2_s0_arm="Study group",
+  p2_s7_q1_m_bin="Referring my peers to PrEP services and delivering HIV self-tests to support the referral",
+  p2_s7_q2_m_bin="Hard to refer my peers to PrEP services and deliver HIV self-tests to support the referral",
+  p2_s7_q3_m_bin="Able to carry-out all elements of the intervention successfully",
+  p2_s7_q4_m_bin="Able to solve any problems that may arise while delivering this intervention",
+  p2_s7_q5_m_bin="Don't understand why I should refer my peers to PrEP services and deliver them HIV self-tests",
+  p2_s7_q6_m_bin="Referring my peers to PrEP services and delivering them HIV self-tests will likely interfere with my other priorities",
+  p2_s7_q8_m_bin="Referring my peers to PrEP services and delivering them HIV self-tests will help them remain HIV-negative",
+  
+  
+  p2_s7_q13_m_bin="Referring my peers to PrEP services and delivering them HIV self-tests to support this referral is possible to implement",
+  p2_s7_q14_m_bin="It is doable to refer my peers to PrEP services and deliver them HIV self-tests to support this referral."
+)
+
+
+
+
+vars_imp=c("p2_s0_arm",names(labels_implem))
+vars_c_imp=paste(vars_imp,collapse = "+")
+vars_c_f_imp=as.formula(paste("~",vars_c_imp))
+vars_f_imp=as.formula(paste("p2_s0_arm~",vars_c_imp))
+
+
+df_imp=ds_pfu %>% dplyr::select(all_of(vars_imp))
+df_imp=set_variable_labels(df_imp, .labels = labels_implem)
+
+
+df_imp_out=compareGroups(vars_f_imp, data = df_imp,
+                         method=c(p2_s6_q1_2=2), simplify=TRUE) %>% createTable(#show.all = T,
+                           show.n=T, digits=0)
+
+
+
+
 ### Among referred peers, self-reported ----
+
+
+labels_implem_cl=c(
+  c2_s0_arm="Study group",
+  c2_s7_q1_m_bin="I liked being referred to PrEP services by my peers and receiving HIV self-tests to support the referral",
+  c2_s7_q2_m_bin="Will be hard to be referred by my peers to PrEP services and being delivered HIV self-tests to support my referral",
+  c2_s7_q3_m_bin="Confident that my peer will be able to carry-out all elements of the intervention successfully",
+  c2_s7_q4_m_bin="My peer will solve any problems that arise while delivering this intervention",
+  c2_s7_q5_m_bin="Don't understand why my peer should refer me to PrEP services and deliver them HIV self-test",
+  c2_s7_q6_m_bin="Being referred by my peers to PrEP services and being delivered HIV self-tests will interfere with my other priorities",
+  c2_s7_q8_m_bin="Referring my peers to PrEP services and delivering them HIV self-tests will help them remain HIV-negative",
+  
+  
+  c2_s7_q13_m_bin="Being referred to PrEP services and being delivered HIVST kits by my peers to support this referral was possible to implement",
+  c2_s7_q14_m_bin="It was doable for my peers to refer me to PrEP services and deliver them HIVST kits to support this referral"
+)
+
+
+vars_imp=c("c2_s0_arm",names(labels_implem_cl))
+vars_c_imp=paste(vars_imp,collapse = "+")
+vars_c_f_imp=as.formula(paste("~",vars_c_imp))
+vars_f_imp=as.formula(paste("c2_s0_arm~",vars_c_imp))
+
+
+df_imp=ds_cfu %>% dplyr::select(all_of(vars_imp))
+df_imp=set_variable_labels(df_imp, .labels = labels_implem_cl)
+
+
+df_imp_out_cl=compareGroups(vars_f_imp, data = df_imp,
+                            # method=c(p2_s6_q1_2=2), 
+                            simplify=TRUE) %>% createTable(#show.all = T,
+                              show.n=T, digits=0)
+
+
