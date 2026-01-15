@@ -532,6 +532,19 @@ round(prop.table(table(df_lcomp$p2_s6_q1_17c,df_lcomp$p2_s0_arm),margin=2)*100,0
 
 ### Among referred peers, self-reported ----
 
+addmargins(table(ds_cfu$c2_s6_q01n,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$c2_s6_q01n,ds_cfu$c2_s0_arm),margin=2)*100,0)
+
+
+addmargins(table(ds_cfu$c2_s6_q01o,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$c2_s6_q01o,ds_cfu$c2_s0_arm),margin=2)*100,0)
+
+
+addmargins(table(ds_cfu$c2_s6_q01s,ds_cfu$c2_s0_arm))
+round(prop.table(table(ds_cfu$c2_s6_q01s,ds_cfu$c2_s0_arm),margin=2)*100,0)
+
+
+
 ## Implementation outcomes ----
 
 
