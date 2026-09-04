@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/170770869.svg)](https://doi.org/10.5281/zenodo.17173243)
+[![DOI](https://zenodo.org/badge/17173243.svg)](https://doi.org/10.5281/zenodo.17173243)
 
 
 # Effect of enhanced peer PrEP referral with HIV self-testing delivery among young Kenyan women: A randomized controlled trial of peer networks
